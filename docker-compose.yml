@@ -14,7 +14,7 @@ services:
   configurator:
     build:
       context: .
-    volumes:
-      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket
-    privileged: true
+    # volumes:
+    #   - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket
+    # privileged: true
     command: ["python", "setup.py"]

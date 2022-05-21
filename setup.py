@@ -1,8 +1,8 @@
-import dbus
+import requests
 
 
-bus = dbus.bus.BusConnection("unix:path=/run/dbus/system_bus_socket")
+SERVER_URL = "http://172.17.0.1:8090"
 
-for service in bus.list_names():
-    print(service)
-
+r = requests.get(f"{SERVER_URL}/index.html")
+print(r)
+print(r.text)
