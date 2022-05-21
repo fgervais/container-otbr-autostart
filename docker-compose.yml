@@ -1,0 +1,20 @@
+version: "3.4"
+services:
+  # otbr:
+  #   image: openthread/otbr
+  #   devices:
+  #     - /dev/ttyACM0
+  #   volumes:
+  #     # - /run/avahi-daemon/socket:/run/avahi-daemon/socket
+  #     - /etc/localtime:/etc/localtime:ro
+  #   command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0", "--nat64-prefix", "fd00:64::/96"]
+  #   # network_mode: "host"
+  #   # privileged: true
+  #   # restart: always
+  configurator:
+    build:
+      context: .
+    volumes:
+      - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket
+    privileged: true
+    command: ["python", "setup.py"]
