@@ -16,5 +16,8 @@ services:
       context: .
     # volumes:
     #   - /run/dbus/system_bus_socket:/run/dbus/system_bus_socket
+    environment:
+      - DEBUG=1
+      - PYTHONUNBUFFERED=1
     # privileged: true
     command: ["python", "setup.py"]

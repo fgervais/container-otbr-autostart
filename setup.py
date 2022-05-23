@@ -1,12 +1,49 @@
 import json
+import logging
+import os
+import signal
 import requests
+import sys
+import time
 
 
-SERVER_URL = "http://172.17.0.1:8090"
+SERVER_URL = "http://172.17.0.1:8091"
 
-r = requests.get(f"{SERVER_URL}/get_properties")
-print(r)
-print(json.dumps(r.json(), indent=4, sort_keys=True))
+
+# Used by docker-compose down
+def sigterm_handler(signal, frame):
+    logger.info("💥 Reacting to SIGTERM")
+    teardown()
+    sys.exit(0)
+
+def teardown():
+    pass
+
+
+logging.basicConfig(
+    format="[%(asctime)s] %(levelname)-8s %(message)s",
+    level=logging.INFO,
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+logger = logging.getLogger(__name__)
+
+if "DEBUG" in os.environ:
+    logger.setLevel(logging.DEBUG)
+
+signal.signal(signal.SIGTERM, sigterm_handler)
+
+logger.debug("🐷 Ready!")
+
+while True:
+    try:
+        r = requests.get(f"{SERVER_URL}/get_properties")
+        print(r)
+        print(json.dumps(r.json(), indent=4, sort_keys=True))
+        break
+    except requests.exceptions.ConnectionError:
+        logger.debug("💀 Could not connect")
+        time.sleep(10)
+
 # {
 #  "error": 0,
 #  "result": {
