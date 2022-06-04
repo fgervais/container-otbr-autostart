@@ -18,6 +18,7 @@ FROM python:3.10.4-slim-bullseye as base
 
 FROM base
 RUN pip install \
-	requests==2.27.1
+	requests==2.27.1 \
+	pyyaml==6.0
 WORKDIR /app
 COPY setup.py .
