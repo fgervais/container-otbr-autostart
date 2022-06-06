@@ -1,8 +1,8 @@
 prefix: "fd11:22::"
-default_route: true
-network_name: home
-pan_id: 0xABCD
-extended_pan_id: 202b057ee33d275c
-network_key: !secret network_key
+defaultRoute: true
+networkName: home
+panId: 0xABCD
+extendedPanId: 202b057ee33d275c
+networkKey: !secret network_key
 passphrase: !secret passphrase
 channel: 15

@@ -12,7 +12,8 @@ import time
 from util.yaml import SECRET_YAML, Secrets, load_yaml
 
 
-SERVER_URL = "http://172.17.0.1:8091"
+# SERVER_URL = "http://172.17.0.1:8091"
+SERVER_URL = "http://otbr:8080"
 
 
 # Used by docker-compose down
@@ -45,8 +46,8 @@ logger.debug("🐷 Ready!")
 #     except yaml.YAMLError as exc:
 #         print(exc)
 
-doc = load_yaml("config.yaml", Secrets("."))
-print(doc)
+config = load_yaml("config.yaml", Secrets("."))
+print(config)
 exit()
 
 
@@ -59,6 +60,10 @@ while True:
     except requests.exceptions.ConnectionError:
         logger.debug("💀 Could not connect")
         time.sleep(10)
+
+r = requests.post(f"{SERVER_URL}/form_network", json=config)
+print(r)
+print(json.dumps(r.json(), indent=4, sort_keys=True))
 
 # {
 #  "error": 0,
