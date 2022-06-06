@@ -21,4 +21,6 @@ RUN pip install \
 	requests==2.27.1 \
 	pyyaml==6.0
 WORKDIR /app
-COPY setup.py .
+COPY util/yaml util/yaml/
+COPY setup.py ./
+COPY *.yaml ./

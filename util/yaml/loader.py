@@ -11,8 +11,6 @@ from typing import Any, TextIO, TypeVar, Union, overload
 
 import yaml
 
-from homeassistant.exceptions import HomeAssistantError
-
 from .const import SECRET_YAML
 from .objects import Input, NodeListClass, NodeStrClass
 
@@ -56,7 +54,7 @@ class Secrets:
                 )
                 return secrets[secret]
 
-        raise HomeAssistantError(f"Secret {secret} not defined")
+        raise Exception(f"Secret {secret} not defined")
 
     def _load_secret_yaml(self, secret_dir: Path) -> dict[str, str]:
         """Load the secrets yaml from path."""
@@ -68,7 +66,7 @@ class Secrets:
             secrets = load_yaml(str(secret_path))
 
             if not isinstance(secrets, dict):
-                raise HomeAssistantError("Secrets is not a dictionary")
+                raise Exception("Secrets is not a dictionary")
 
             if "logger" in secrets:
                 logger = str(secrets["logger"]).lower()
@@ -111,7 +109,7 @@ def load_yaml(fname: str, secrets: Secrets | None = None) -> JSON_TYPE:
             return parse_yaml(conf_file, secrets)
     except UnicodeDecodeError as exc:
         _LOGGER.error("Unable to read file %s: %s", fname, exc)
-        raise HomeAssistantError(exc) from exc
+        raise Exception(exc) from exc
 
 
 def parse_yaml(content: str | TextIO, secrets: Secrets | None = None) -> JSON_TYPE:
@@ -125,7 +123,7 @@ def parse_yaml(content: str | TextIO, secrets: Secrets | None = None) -> JSON_TY
         )
     except yaml.YAMLError as exc:
         _LOGGER.error(str(exc))
-        raise HomeAssistantError(exc) from exc
+        raise Exception(exc) from exc
 
 
 @overload
@@ -171,7 +169,7 @@ def _include_yaml(loader: SafeLineLoader, node: yaml.nodes.Node) -> JSON_TYPE:
     try:
         return _add_reference(load_yaml(fname, loader.secrets), loader, node)
     except FileNotFoundError as exc:
-        raise HomeAssistantError(
+        raise Exception(
             f"{node.start_mark}: Unable to read file {fname}."
         ) from exc
 
@@ -295,13 +293,13 @@ def _env_var_yaml(loader: SafeLineLoader, node: yaml.nodes.Node) -> str:
     if args[0] in os.environ:
         return os.environ[args[0]]
     _LOGGER.error("Environment variable %s not defined", node.value)
-    raise HomeAssistantError(node.value)
+    raise Exception(node.value)
 
 
 def secret_yaml(loader: SafeLineLoader, node: yaml.nodes.Node) -> JSON_TYPE:
     """Load secrets and embed it into the configuration YAML."""
     if loader.secrets is None:
-        raise HomeAssistantError("Secrets not supported in this YAML file")
+        raise Exception("Secrets not supported in this YAML file")
 
     return loader.secrets.get(loader.name, node.value)
 

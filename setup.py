@@ -1,10 +1,15 @@
 import json
 import logging
 import os
-import signal
 import requests
+import signal
 import sys
 import time
+
+
+# from util.yaml import loader as yaml_loader
+# from util.yaml.loader import load_yaml
+from util.yaml import SECRET_YAML, Secrets, load_yaml
 
 
 SERVER_URL = "http://172.17.0.1:8091"
@@ -33,6 +38,17 @@ if "DEBUG" in os.environ:
 signal.signal(signal.SIGTERM, sigterm_handler)
 
 logger.debug("🐷 Ready!")
+
+# with open("example.yaml", "r") as stream:
+#     try:
+#         print(yaml.safe_load(stream))
+#     except yaml.YAMLError as exc:
+#         print(exc)
+
+doc = load_yaml("config.yaml", Secrets("."))
+print(doc)
+exit()
+
 
 while True:
     try:
