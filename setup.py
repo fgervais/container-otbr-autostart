@@ -13,7 +13,7 @@ from util.yaml import SECRET_YAML, Secrets, load_yaml
 
 
 # SERVER_URL = "http://172.17.0.1:8091"
-SERVER_URL = "http://otbr:8080"
+SERVER_URL = "http://otbr:80"
 
 
 # Used by docker-compose down
@@ -48,7 +48,7 @@ logger.debug("🐷 Ready!")
 
 config = load_yaml("config.yaml", Secrets("."))
 print(config)
-exit()
+# exit()
 
 
 while True:
@@ -56,10 +56,15 @@ while True:
         r = requests.get(f"{SERVER_URL}/get_properties")
         print(r)
         print(json.dumps(r.json(), indent=4, sort_keys=True))
+        time.sleep(1)
         break
     except requests.exceptions.ConnectionError:
         logger.debug("💀 Could not connect")
         time.sleep(10)
+
+
+exit()
+
 
 r = requests.post(f"{SERVER_URL}/form_network", json=config)
 print(r)

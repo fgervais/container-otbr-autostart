@@ -1,23 +1,23 @@
 version: "3.4"
 # docker run --sysctl "net.ipv6.conf.all.disable_ipv6=0 net.ipv4.conf.all.forwarding=1 net.ipv6.conf.all.forwarding=1" -p 8080:80 --volume /dev/ttyACM0:/dev/ttyACM0 --privileged openthread/otbr --radio-url spinel+hdlc+uart:///dev/ttyACM0 --nat64-prefix "fd00:64::/96"
 services:
-  # otbr:
-  #   image: openthread/otbr
-  #   sysctls:
-  #     - net.ipv6.conf.all.disable_ipv6=0
-  #     - net.ipv4.conf.all.forwarding=1
-  #     - net.ipv6.conf.all.forwarding=1
-  #   ports:
-  #     - "8080:80"
-  #   devices:
-  #     - /dev/ttyACM0
-  #   volumes:
-  #     # - /run/avahi-daemon/socket:/run/avahi-daemon/socket
-  #     - /etc/localtime:/etc/localtime:ro
-  #   command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0", "--nat64-prefix", "fd00:64::/96"]
-  #   # network_mode: "host"
-  #   # privileged: true
-  #   # restart: always
+  otbr:
+    image: openthread/otbr
+    sysctls:
+      - net.ipv6.conf.all.disable_ipv6=0
+      - net.ipv4.conf.all.forwarding=1
+      - net.ipv6.conf.all.forwarding=1
+    ports:
+      - "8080:80"
+    devices:
+      - /dev/ttyACM0
+    volumes:
+      # - /run/avahi-daemon/socket:/run/avahi-daemon/socket
+      - /etc/localtime:/etc/localtime:ro
+    command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0", "--nat64-prefix", "fd00:64::/96"]
+    # network_mode: "host"
+    privileged: true
+    # restart: always
   setup:
     build:
       context: .
