@@ -16,6 +16,7 @@ from util.yaml import SECRET_YAML, Secrets, load_yaml
 SERVER_URL = "http://otbr:80"
 
 RETRY_DELAY_SEC = 10
+INIT_DELAY_SEC = 10
 
 
 # Used by docker-compose down
@@ -52,6 +53,7 @@ config = load_yaml("config.yaml", Secrets("."))
 print(config)
 # exit()
 
+time.sleep(INIT_DELAY_SEC)
 
 while True:
     try:
