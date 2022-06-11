@@ -15,6 +15,8 @@ from util.yaml import SECRET_YAML, Secrets, load_yaml
 # SERVER_URL = "http://172.17.0.1:8091"
 SERVER_URL = "http://otbr:80"
 
+RETRY_DELAY_SEC = 10
+
 
 # Used by docker-compose down
 def sigterm_handler(signal, frame):
@@ -54,17 +56,42 @@ print(config)
 while True:
     try:
         r = requests.get(f"{SERVER_URL}/get_properties")
-        print(r)
-        print(json.dumps(r.json(), indent=4, sort_keys=True))
+        logger.debug(r)
+        logger.debug(json.dumps(r.json(), indent=4, sort_keys=True))
+
+        http_error = r.json()["error"]
+        logger.debug(http_error)
+
+        if http_error != 0:
+            logger.debug("❌ HTTP error")
+            time.sleep(RETRY_DELAY_SEC)
+            continue
+
+        wpan_state = r.json()["result"]["WPAN service"]
+        logger.debug(wpan_state)
+
+        if wpan_state != "offline":
+            logger.debug("✔️ Already connected")
+            time.sleep(RETRY_DELAY_SEC)
+            continue
+
         time.sleep(1)
         break
+
     except requests.exceptions.ConnectionError:
         logger.debug("💀 Could not connect")
-        time.sleep(10)
+        time.sleep(RETRY_DELAY_SEC)
 
 
-exit()
+# exit()
+from http.client import HTTPConnection
 
+HTTPConnection.debuglevel = 1
+
+logging.getLogger().setLevel(logging.DEBUG)
+requests_log = logging.getLogger("urllib3")
+requests_log.setLevel(logging.DEBUG)
+requests_log.propagate = True
 
 r = requests.post(f"{SERVER_URL}/form_network", json=config)
 print(r)

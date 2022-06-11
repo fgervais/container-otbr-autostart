@@ -11,6 +11,8 @@ services:
       - "8080:80"
     devices:
       - /dev/ttyACM0
+    tmpfs:
+      - /run
     volumes:
       # - /run/avahi-daemon/socket:/run/avahi-daemon/socket
       - /etc/localtime:/etc/localtime:ro

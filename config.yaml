@@ -5,7 +5,7 @@ networkName: emoh
 # panId: 0xABCD
 panId: 0xDDDD
 # extendedPanId: 202b057ee33d275c
-extendedPanId: 202beeeee33d275c
+extPanId: 202beeeee33d275c
 networkKey: !secret network_key
 passphrase: !secret passphrase
 # channel: 15
