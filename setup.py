@@ -6,13 +6,9 @@ import signal
 import sys
 import time
 
-
-# from util.yaml import loader as yaml_loader
-# from util.yaml.loader import load_yaml
 from util.yaml import SECRET_YAML, Secrets, load_yaml
 
 
-# SERVER_URL = "http://172.17.0.1:8091"
 SERVER_URL = "http://otbr:80"
 
 RETRY_DELAY_SEC = 10
@@ -24,6 +20,7 @@ def sigterm_handler(signal, frame):
     logger.info("💥 Reacting to SIGTERM")
     teardown()
     sys.exit(0)
+
 
 def teardown():
     pass
@@ -43,15 +40,8 @@ signal.signal(signal.SIGTERM, sigterm_handler)
 
 logger.debug("🐷 Ready!")
 
-# with open("example.yaml", "r") as stream:
-#     try:
-#         print(yaml.safe_load(stream))
-#     except yaml.YAMLError as exc:
-#         print(exc)
-
 config = load_yaml("config.yaml", Secrets("."))
-print(config)
-# exit()
+logger.debug(config)
 
 time.sleep(INIT_DELAY_SEC)
 
@@ -85,7 +75,6 @@ while True:
         time.sleep(RETRY_DELAY_SEC)
 
 
-# exit()
 from http.client import HTTPConnection
 
 HTTPConnection.debuglevel = 1
@@ -96,8 +85,8 @@ requests_log.setLevel(logging.DEBUG)
 requests_log.propagate = True
 
 r = requests.post(f"{SERVER_URL}/form_network", json=config)
-print(r)
-print(json.dumps(r.json(), indent=4, sort_keys=True))
+logger.debug(r)
+logger.debug(json.dumps(r.json(), indent=4, sort_keys=True))
 
 # {
 #  "error": 0,
@@ -120,7 +109,6 @@ print(json.dumps(r.json(), indent=4, sort_keys=True))
 #      "WPAN service": "associated"
 #  }
 # }
-
 
 
 # curl --header "Content-Type: application/json" --request POST --data \
