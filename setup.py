@@ -74,14 +74,14 @@ while True:
 
 
 if wpan_state == "offline":
-    from http.client import HTTPConnection
+    # from http.client import HTTPConnection
 
-    HTTPConnection.debuglevel = 1
+    # HTTPConnection.debuglevel = 1
 
-    logging.getLogger().setLevel(logging.DEBUG)
-    requests_log = logging.getLogger("urllib3")
-    requests_log.setLevel(logging.DEBUG)
-    requests_log.propagate = True
+    # logging.getLogger().setLevel(logging.DEBUG)
+    # requests_log = logging.getLogger("urllib3")
+    # requests_log.setLevel(logging.DEBUG)
+    # requests_log.propagate = True
 
     r = requests.post(f"{SERVER_URL}/form_network", json=config)
     logger.debug(r)
