@@ -63,9 +63,7 @@ while True:
         logger.debug(wpan_state)
 
         if wpan_state != "offline":
-            logger.debug("✔️ Already connected")
-            time.sleep(RETRY_DELAY_SEC)
-            continue
+            logger.info("✔️ Already connected")
 
         time.sleep(1)
         break
@@ -75,18 +73,19 @@ while True:
         time.sleep(RETRY_DELAY_SEC)
 
 
-from http.client import HTTPConnection
+if wpan_state == "offline":
+    from http.client import HTTPConnection
 
-HTTPConnection.debuglevel = 1
+    HTTPConnection.debuglevel = 1
 
-logging.getLogger().setLevel(logging.DEBUG)
-requests_log = logging.getLogger("urllib3")
-requests_log.setLevel(logging.DEBUG)
-requests_log.propagate = True
+    logging.getLogger().setLevel(logging.DEBUG)
+    requests_log = logging.getLogger("urllib3")
+    requests_log.setLevel(logging.DEBUG)
+    requests_log.propagate = True
 
-r = requests.post(f"{SERVER_URL}/form_network", json=config)
-logger.debug(r)
-logger.debug(json.dumps(r.json(), indent=4, sort_keys=True))
+    r = requests.post(f"{SERVER_URL}/form_network", json=config)
+    logger.debug(r)
+    logger.debug(json.dumps(r.json(), indent=4, sort_keys=True))
 
 # {
 #  "error": 0,
