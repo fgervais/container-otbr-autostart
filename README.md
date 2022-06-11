@@ -1,8 +1,18 @@
-#
+# Self configuring OTBR application
 
-## Setup
+## On device setup
 
 Add `ip6table_filter` to `/etc/modules`.
+
+## Fill network information
+
+1. Fill public information to `config.yaml`
+2. Create a `secrets.yaml` file:
+
+```
+network_key: 00112233445566778899aabbccddeeff
+passphrase: j01Nme
+```
 
 ## Run
 
