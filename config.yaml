@@ -1,7 +1,7 @@
 prefix: "fd11:22::"
 defaultRoute: true
 networkName: home
-panId: 0xABCD
+panId: "0xABCD"
 extPanId: 202b057ee33d275c
 networkKey: !secret network_key
 passphrase: !secret passphrase
