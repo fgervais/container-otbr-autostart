@@ -17,7 +17,7 @@ passphrase: j01Nme
 ## Run
 
 ```bash
-DOCKER_HOST=ssh://otbr1.local docker-compose up
+DOCKER_HOST=ssh://otbr1.local docker compose up
 ```
 
 ## Note on otbr config
@@ -31,5 +31,5 @@ need to initiate the network again as otbr will feed from it's internal config.
 If you which to start from scratch, you may use the following:
 
 ```bash
-DOCKER_HOST=ssh://otbr1.local docker-compose down
+DOCKER_HOST=ssh://otbr1.local docker compose down
 ```
