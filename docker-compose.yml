@@ -3,20 +3,27 @@ version: "3.4"
 services:
   otbr:
     image: francoisgervais/ot-br-posix
-    sysctls:
-      - net.ipv6.conf.all.disable_ipv6=0
-      - net.ipv4.conf.all.forwarding=1
-      - net.ipv6.conf.all.forwarding=1
-    ports:
-      - "8080:80"
+    # sysctls:
+    #   - net.ipv6.conf.all.disable_ipv6=0
+    #   - net.ipv4.conf.all.forwarding=1
+    #   - net.ipv6.conf.all.forwarding=1
+    # ports:
+    #   - "8080:80"
     devices:
       - /dev/ttyACM0
     tmpfs:
       - /run
     volumes:
       - /etc/localtime:/etc/localtime:ro
-    command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0", "--nat64-prefix", "fd00:64::/96"]
+      - /run/avahi-daemon/socket:/run/avahi-daemon/socket
+      - /var/run/dbus:/var/run/dbus
+    entrypoint: ""
+    command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0",
+              "--backbone-interface", "eno1",
+              "--trel-url", "trel://eno1",
+    ]
     privileged: true
+    network_mode: host
     # restart: always
   setup:
     build:
