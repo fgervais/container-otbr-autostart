@@ -33,3 +33,12 @@ If you which to start from scratch, you may use the following:
 ```bash
 DOCKER_HOST=ssh://otbr1.local docker compose down
 ```
+
+## Build the container image
+
+```bash
+git clone --recursive https://github.com/openthread/ot-br-posix.git
+
+cd ot-br-posix
+docker build -f etc/docker/Dockerfile --build-arg NAT64=0 --build-arg DNS64=0 --build-arg MDNS=avahi --build-arg OTBR_OPTIONS="-DOTBR_DBUS=OFF" -t francoisgervais/${PWD##*/} .
+```
