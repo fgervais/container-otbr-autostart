@@ -9,7 +9,7 @@ import time
 from util.yaml import SECRET_YAML, Secrets, load_yaml
 
 
-SERVER_URL = "http://otbr:80"
+SERVER_URL = "http://host.docker.internal:80"
 
 RETRY_DELAY_SEC = 10
 INIT_DELAY_SEC = 10

@@ -17,7 +17,7 @@ services:
       - /etc/localtime:/etc/localtime:ro
       - /run/avahi-daemon/socket:/run/avahi-daemon/socket
       - /var/run/dbus:/var/run/dbus
-    entrypoint: ""
+    # entrypoint: ""
     command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0",
               "--backbone-interface", "eno1",
               "--trel-url", "trel://eno1",
@@ -31,4 +31,6 @@ services:
     environment:
       - DEBUG=1
       - PYTHONUNBUFFERED=1
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
     command: ["python", "setup.py"]
