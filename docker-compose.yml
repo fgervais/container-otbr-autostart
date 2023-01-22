@@ -17,8 +17,8 @@ services:
       - /var/run/dbus:/var/run/dbus
     # entrypoint: ""
     command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0",
-              "--backbone-interface", "eno1",
-              "--trel-url", "trel://eno1",
+              "--backbone-interface", "${BACKBONE_INTERFACE:-eno1}",
+              "--trel-url", "trel://${BACKBONE_INTERFACE:-eno1}",
     ]
     privileged: true
     network_mode: host

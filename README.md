@@ -20,6 +20,12 @@ passphrase: j01Nme
 DOCKER_HOST=ssh://otbr1.local docker compose up
 ```
 
+### Change the backbone interface
+
+```bash
+DOCKER_HOST=ssh://otbr1.local BACKBONE_INTERFACE=eth0 docker compose up
+```
+
 ## Note on otbr config
 
 OTBR will store the network config in a `.data` file inside
