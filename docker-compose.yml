@@ -14,7 +14,7 @@ services:
     volumes:
       - /etc/localtime:/etc/localtime:ro
       - /run/avahi-daemon/socket:/run/avahi-daemon/socket
-      - /var/run/dbus:/var/run/dbus
+      - /run/dbus:/run/dbus
     # entrypoint: ""
     command: ["--radio-url", "spinel+hdlc+uart:///dev/ttyACM0",
               "--backbone-interface", "${BACKBONE_INTERFACE:-eno1}",
