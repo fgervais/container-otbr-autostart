@@ -46,7 +46,7 @@ DOCKER_HOST=ssh://otbr1.local docker compose down
 git clone --recursive https://github.com/openthread/ot-br-posix.git
 
 cd ot-br-posix
-docker build -f etc/docker/Dockerfile --build-arg NAT64=0 --build-arg DNS64=0 --build-arg MDNS=avahi --build-arg OTBR_OPTIONS="-DOTBR_DBUS=OFF -DOTBR_TREL=ON" -t francoisgervais/${PWD##*/} . && docker save francoisgervais/${PWD##*/}
+docker build -f etc/docker/Dockerfile --build-arg NAT64=0 --build-arg DNS64=0 --build-arg MDNS=avahi --build-arg OTBR_OPTIONS="-DOTBR_DBUS=OFF -DOTBR_TREL=ON" -t francoisgervais/${PWD##*/} .
 ```
 
 ### Other architectures
