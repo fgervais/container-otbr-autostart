@@ -64,3 +64,23 @@ docker buildx build --platform linux/arm64 -f etc/docker/Dockerfile --build-arg 
 ```bash
 docker buildx build --platform linux/amd64,linux/arm64 -f etc/docker/Dockerfile --build-arg NAT64=0 --build-arg DNS64=0 --build-arg MDNS=avahi --build-arg OTBR_OPTIONS="-DOTBR_DBUS=OFF -DOTBR_TREL=ON" -t francoisgervais/${PWD##*/}:ipv6-only --push .
 ```
+
+## Manually configure network
+
+```bash
+dataset channel 15
+dataset networkkey <networkkey>
+dataset networkname home
+dataset panid 0x2240
+dataset extpanid 4224000000001000
+dataset commit active
+```
+
+```bash
+prefix add fd04:2240:0:0102::/64 paos med
+```
+
+```bash
+ifconfig up
+thread start
+```
