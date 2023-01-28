@@ -23,12 +23,12 @@ services:
     privileged: true
     network_mode: host
     # restart: always
-  setup:
-    build:
-      context: .
-    environment:
-      - DEBUG=1
-      - PYTHONUNBUFFERED=1
-    extra_hosts:
-      - "host.docker.internal:host-gateway"
-    command: ["python", "setup.py"]
+  # setup:
+  #   build:
+  #     context: .
+  #   environment:
+  #     - DEBUG=1
+  #     - PYTHONUNBUFFERED=1
+  #   extra_hosts:
+  #     - "host.docker.internal:host-gateway"
+  #   command: ["python", "setup.py"]
