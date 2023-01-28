@@ -1,12 +1,6 @@
 services:
   otbr:
     image: francoisgervais/ot-br-posix:ipv6-only
-    # sysctls:
-    #   - net.ipv6.conf.all.disable_ipv6=0
-    #   - net.ipv4.conf.all.forwarding=1
-    #   - net.ipv6.conf.all.forwarding=1
-    # ports:
-    #   - "8080:80"
     devices:
       - /dev/ttyACM0
     tmpfs:
