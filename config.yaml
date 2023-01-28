@@ -1,8 +1,8 @@
-prefix: "fd04:2240:0:20::"
-defaultRoute: true
-networkName: dev
-panId: "0xABCD"
-extPanId: 202b057ee33d275c
+prefix: "fd04:2240:0:0102::"
+defaultRoute: false
+networkName: home
+panId: "0x2240"
+extPanId: "4224000000001000"
 networkKey: !secret network_key
 passphrase: !secret passphrase
-channel: 20
+channel: 15
