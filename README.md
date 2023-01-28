@@ -2,7 +2,11 @@
 
 ## On device setup
 
-Add `ip6table_filter` to `/etc/modules`.
+1. Add `ip6table_filter` to `/etc/modules`.
+
+2. ```bash
+sudo apt install avahi-daemon
+```
 
 ## Fill network information
 
