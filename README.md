@@ -14,8 +14,8 @@ sudo apt install avahi-daemon
 2. Create a `secrets.yaml` file:
 
 ```
-network_key: 00112233445566778899aabbccddeeff
-passphrase: j01Nme
+network_key: <networkkey>
+passphrase: <passphrase>
 ```
 
 ## Run
