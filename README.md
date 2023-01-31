@@ -8,6 +8,18 @@
 sudo apt install avahi-daemon
 ```
 
+3. ```bash
+fgervais@nuc2:~$ cat /etc/systemd/network/05-eno1.network 
+[Match]
+Name=eno1
+
+[Network]
+DHCP=ipv4
+
+[IPv6AcceptRA]
+RouteMetric="512:1024:2048"
+```
+
 ## Fill network information
 
 1. Fill public information to `config.yaml`
