@@ -89,7 +89,7 @@ dataset commit active
 ```
 
 ```bash
-prefix add fd04:2240:0:0102::/64 paos med
+prefix add fd04:2240:0:102::/64 paos med
 ```
 
 ```bash
