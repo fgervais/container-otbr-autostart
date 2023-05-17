@@ -4,11 +4,15 @@
 
 1. Add `ip6table_filter` to `/etc/modules`.
 
-2. ```bash
+2. Enable mDNS:
+
+```bash
 sudo apt install avahi-daemon
 ```
 
-3. ```bash
+3. Reset route metrics to systemd defaults:
+
+```bash
 fgervais@nuc2:~$ cat /etc/systemd/network/05-eno1.network 
 [Match]
 Name=eno1
